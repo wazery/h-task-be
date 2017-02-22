@@ -6,7 +6,7 @@ You can find it in a [submodule](https://github.com/wazery/painter-task/tree/5d8
 
 ## Heroku Deployed version
 
-You can just go to the [application](http://h-task-be.herokuapp.com) to check the deployed version.
+You can just go to this [Heroku application](http://h-task-be.herokuapp.com) to check the deployed version.
 
 ## Setup
 
