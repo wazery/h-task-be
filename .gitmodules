@@ -1,0 +1,3 @@
+[submodule "painter-task"]
+	path = painter-task
+	url = git@github.com:wazery/painter-task.git
