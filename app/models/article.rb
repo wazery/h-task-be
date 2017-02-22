@@ -12,6 +12,7 @@ class Article < ActiveRecord::Base
   validates :title, :description, presence: true
 
   # Methods
+  # Class Methods
   def self.title_like(title)
     where("lower(articles.description) LIKE ?", "%#{title.downcase}%")
   end
@@ -20,17 +21,17 @@ class Article < ActiveRecord::Base
     where("lower(articles.description) LIKE ?", "%#{description.downcase}%")
   end
 
+  # Instance Methods
   def tag_list
     tags.map(&:name).join(', ')
   end
 
   def tag_list=(names)
-    self.tags = names.split(',').map do |n|
-      Tag.where(name: n.strip).first_or_create!
+    self.tags = names.split(',').map do |name|
+      Tag.where(name: name.strip).first_or_create!
     end
   end
 
-  # FIXME:
   def self.tagged_with(name)
     tag = Tag.find_by(name: name)
     return nil unless tag
