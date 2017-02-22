@@ -4,7 +4,16 @@ class ArticlesController < ApplicationController
 
   # GET /articles
   def index
-    @articles = Article.all
+    return @articles = Article.all unless params[:criteria]
+
+    case params[:criteria].first
+    when 'tag'
+      @articles = Article.tagged_with(params[:terms])
+    when 'title'
+      @articles = Article.title_like(params[:terms])
+    when 'description'
+      @articles = Article.description_like(params[:terms])
+    end
   end
 
   # GET /articles/1
@@ -21,6 +30,9 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1/edit
   def edit
+    unless current_user.id == @article.user_id
+      redirect_to root_url, flash: { errors: 'You are not authorized to edit this!' }
+    end
   end
 
   # POST /articles
@@ -63,6 +75,6 @@ class ArticlesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def article_params
-    params.require(:article).permit(:title, :description, :user_id)
+    params.require(:article).permit(:title, :description, :user_id, :tag_list)
   end
 end

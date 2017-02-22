@@ -2,30 +2,66 @@
 
 <h1>Magazine Articles</h1>
 
-<% if @articles.present? %>
-  <table>
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+<br />
 
-    <tbody>
+<div class="container">
+  <div class="row row-margin-bottom">
+    <%= form_tag search_path do %>
+    <div class="form-group">
+      <label class="radio-inline">
+        <%= radio_button 'criteria', '', 'tag', checked: true %> Tag
+      </label>
+      <label class="radio-inline">
+        <%= radio_button 'criteria', '', 'title' %> Title
+      </label>
+      <label class="radio-inline">
+        <%= radio_button 'criteria', '', 'description' %> Description
+      </label>
+    </div>
+
+    <div class="form-group">
+      <div class="input-group input-group-sm">
+        <%= text_field_tag(:terms, params['search_box'], class: 'form-control') %>
+        <span class="input-group-btn">
+          <%= submit_tag 'Search', class: 'btn btn-default' %>
+        </span>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
+  <% if @articles.present? %>
+    <div class="row row-margin-bottom">
       <% @articles.each do |article| %>
-        <tr>
-          <td><%= article.title %></td>
-          <td><%= article.description %></td>
-          <td><%= link_to 'Show', article %></td>
-          <td><%= link_to 'Edit', edit_article_path(article) %></td>
-          <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+      <div class="col-md-4 no-padding lib-item" data-category="view">
+        <div class="lib-panel">
+          <div class="row box-shadow">
+            <div class="col-md-6">
+              <img class="lib-img-show" src="http://lorempixel.com/850/850/?random=<%= SecureRandom.random_number(1000) %>">
+            </div>
+            <div class="col-md-6">
+              <div class="lib-row lib-header">
+                <%= link_to article.title, article %>
+                <div class="lib-header-seperator"></div>
+              </div>
+              <div class="lib-row lib-desc">
+                <%= truncate article.description, length: 140 %>
+                <div class="lib-header-seperator"></div>
+              </div>
+              <br />
+              <div class="lib-row">
+                Tags: <%= raw article.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-1"></div>
       <% end %>
-    </tbody>
-  </table>
-<% end %>
+    </div>
+  <% end %>
 
-<br>
-
-<%= link_to 'New Article', new_article_path, class: 'btn btn-default' %>
+  <div class="form-group">
+    <%= link_to 'New Article', new_article_path, class: 'btn btn-default form-control' %>
+  </div>
+</div>

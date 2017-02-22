@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 
   # Methods
   def user_name
-    # TODO: Does the anonymous can be changed to the email?
+    # TODO: Does the 'anonymous' can be changed to the email?
     name.present? ? name : 'Anonymous'
   end
 end
