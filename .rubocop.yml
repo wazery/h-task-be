@@ -16,6 +16,9 @@ AllCops:
 Style/SelfAssignment: # good to be enabled
   Enabled: false
 
+Style/Tab:
+  Enabled: false
+
 Style/NestedTernaryOperator: # good to be enabled
   Enabled: false
 
