@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: %w(show edit update destroy)
-  before_action :check_if_user_loggedin
+  before_action :check_if_user_logged_in, except: %w(index show)
 
   # GET /articles
   def index
@@ -9,6 +9,9 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1
   def show
+    # Use find_by to not raise an exception if user is not found
+    user = User.find_by(id: @article.user_id)
+    @author_name = user.user_name if user
   end
 
   # GET /articles/new
@@ -48,7 +51,7 @@ class ArticlesController < ApplicationController
 
   private
 
-  def check_if_user_loggedin
+  def check_if_user_logged_in
     # Gaurd clause to check if user is not yet logged in
     redirect_to new_user_session_path, flash: { errors: 'Please login first!' } unless user_signed_in?
   end

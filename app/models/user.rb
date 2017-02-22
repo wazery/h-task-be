@@ -5,9 +5,14 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Validations
-  validates_presence_of :name
   validates_presence_of :email
 
   # Relations
   has_many :articles
+
+  # Methods
+  def user_name
+    # TODO: Does the anonymous can be changed to the email?
+    name.present? ? name : 'Anonymous'
+  end
 end

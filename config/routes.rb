@@ -1,7 +1,9 @@
 Homify::Application.routes.draw do
-  resources :articles
-  devise_for :users
-  root 'pages#home'
+  root 'articles#index'
 
+  devise_for :users
+  resources :articles
+
+  # TODO: Remove this
   get '/home', to: 'pages#home', as: 'home'
 end
