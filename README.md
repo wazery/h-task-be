@@ -1,6 +1,6 @@
 # Painter task
 
-You can find it in a [submodule](https://github.com/wazery/painter-task/tree/5d8dd612b7dbb3f5c2ecd3f073a404e47d73c348) from this repo
+You can find it in a [submodule](https://github.com/wazery/painter-task/tree/5d8dd612b7dbb3f5c2ecd3f073a404e47d73c348) from this repo.
 
 **Tentative Time:** 1.5 hours
 
